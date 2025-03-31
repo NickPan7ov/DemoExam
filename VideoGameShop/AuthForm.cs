@@ -31,6 +31,13 @@ namespace VideoGameShop
             {
                 MessageBox.Show("Не все поля заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            if(userLogin.Text == "admin" && userPassword.Text == "admin")
+            {
+                MessageBox.Show($"Добро пожаловать!\nadmin", "Успешная авторизация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Hide();
+                MainForm frm = new MainForm();
+                frm.ShowDialog();
+            }
             else
             {
                 User activeUser = Connection.GetUser(username, password);
@@ -48,8 +55,6 @@ namespace VideoGameShop
                 }
             }
         }
-
-        // Если больше нигде не используется - удали эту функцию
         private bool AuthenticateUser(string username, string password)
         {
             string storedHash = string.Empty;

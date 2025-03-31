@@ -39,6 +39,7 @@ namespace VideoGameShop
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +59,7 @@ namespace VideoGameShop
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(214, 435);
+            this.button1.Location = new System.Drawing.Point(214, 500);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(171, 43);
             this.button1.TabIndex = 3;
@@ -151,12 +152,26 @@ namespace VideoGameShop
             this.pictureBox3.TabIndex = 10;
             this.pictureBox3.TabStop = false;
             // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button6.ForeColor = System.Drawing.Color.Black;
+            this.button6.Location = new System.Drawing.Point(214, 384);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(171, 52);
+            this.button6.TabIndex = 11;
+            this.button6.Text = "Восстановление";
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(604, 490);
+            this.ClientSize = new System.Drawing.Size(604, 555);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -191,5 +206,6 @@ namespace VideoGameShop
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Button button6;
     }
 }

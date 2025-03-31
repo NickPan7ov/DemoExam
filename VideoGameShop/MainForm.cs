@@ -66,6 +66,12 @@ namespace VideoGameShop
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if(AppData.ActiveUser == null)
+            {
+                label3.Text = "admin";
+                return;
+            }
+
             label3.Text = AppData.ActiveUser.fio;
             if (AppData.ActiveUser.roleid == User.ADMIN) 
             {
@@ -88,6 +94,13 @@ namespace VideoGameShop
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormRecreate frm = new FormRecreate();
+            frm.ShowDialog();
         }
     }
 }
