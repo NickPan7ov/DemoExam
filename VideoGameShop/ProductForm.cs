@@ -31,8 +31,8 @@ namespace VideoGameShop
         {
             InitializeComponent();
         }
-        // private static string connectionString = "server=127.0.0.1;database=db44;user=root;password=root";
-        public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
+         private static string connectionString = "server=127.0.0.1;database=db44;user=root;password=root";
+        //public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
         private Image ByteArrayToImage(byte[] byteArrayIn)
         {
             using (MemoryStream ms = new MemoryStream(byteArrayIn))
@@ -139,7 +139,10 @@ namespace VideoGameShop
             comboBox2.SelectedIndex = 0;
             foreach (var category in categories)
                 comboBox1.Items.Add(category.Name);
-
+            if (AppData.ActiveUser == null)
+            {
+                return;
+            }
             if (AppData.ActiveUser.roleid == User.MANAGER)
             {
                 button4.Visible = false;

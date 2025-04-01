@@ -102,5 +102,12 @@ namespace VideoGameShop
             FormRecreate frm = new FormRecreate();
             frm.ShowDialog();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormImportCSV frm = new FormImportCSV();
+            frm.ShowDialog();
+        }
     }
 }

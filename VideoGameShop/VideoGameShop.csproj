@@ -91,6 +91,12 @@
     <Compile Include="EditProductForm.Designer.cs">
       <DependentUpon>EditProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormImportCSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImportCSV.Designer.cs">
+      <DependentUpon>FormImportCSV.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRecreate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditProductForm.resx">
       <DependentUpon>EditProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormImportCSV.resx">
+      <DependentUpon>FormImportCSV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRecreate.resx">
       <DependentUpon>FormRecreate.cs</DependentUpon>
