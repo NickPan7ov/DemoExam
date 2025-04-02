@@ -13,6 +13,8 @@ namespace VideoGameShop
 {
     public partial class AuthForm : Form
     {
+  
+        //400/700
         bool isPasswordVisible = false;
         //public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
         private string connectionString = "server=127.0.0.1;database=db44;user=root;password=root";
@@ -21,6 +23,9 @@ namespace VideoGameShop
             InitializeComponent();
             userPassword.UseSystemPasswordChar = true;
             pictureBox2.Visible = false;
+            var fSize = new Size(400, 327);
+            this.Size = fSize;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -30,6 +35,8 @@ namespace VideoGameShop
             if (!checkFields())
             {
                 MessageBox.Show("Не все поля заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CaptchaForm fr = new CaptchaForm();
+                fr.ShowDialog();
             }
             if(userLogin.Text == "admin" && userPassword.Text == "admin")
             {
@@ -37,6 +44,7 @@ namespace VideoGameShop
                 this.Hide();
                 MainForm frm = new MainForm();
                 frm.ShowDialog();
+
             }
             else
             {
@@ -52,6 +60,8 @@ namespace VideoGameShop
                 else
                 {
                     MessageBox.Show("Неверно введеный логин и пароль!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CaptchaForm fr = new CaptchaForm();
+                    fr.ShowDialog();
                 }
             }
         }
@@ -111,6 +121,21 @@ namespace VideoGameShop
 
         m1:
             userPassword.UseSystemPasswordChar = isPasswordVisible;
+        }
+
+        private void AuthForm_Load(object sender, EventArgs e)
+        {
+            
+        }
+       
+
+        
+
+       
+
+        private void Captcha2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

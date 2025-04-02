@@ -33,3 +33,4 @@ D:\panfilov\day13\Day12\day8\Category\Day6\VideoGameShop\VideoGameShop\obj\Debug
 D:\panfilov\day13\Day12\day8\Category\Day6\VideoGameShop\VideoGameShop\obj\Debug\VideoGameShop.pdb
 D:\panfilov\day13\Day12\day8\Category\Day6\VideoGameShop\VideoGameShop\obj\Debug\VideoGameShop.FormRecreate.resources
 D:\panfilov\day13\Day12\day8\Category\Day6\VideoGameShop\VideoGameShop\obj\Debug\VideoGameShop.FormImportCSV.resources
+D:\panfilov\day13\Day12\day8\Category\Day6\VideoGameShop\VideoGameShop\obj\Debug\VideoGameShop.CaptchaForm.resources
