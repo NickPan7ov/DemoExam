@@ -16,8 +16,8 @@ namespace VideoGameShop
   
         //400/700
         bool isPasswordVisible = false;
-        //public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
-        private string connectionString = "server=127.0.0.1;database=db44;user=root;password=root";
+        public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
+        //private string connectionString = "server=127.0.0.1;database=db44;user=root;password=root";
         public AuthForm()
         {
             InitializeComponent();

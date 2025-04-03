@@ -22,17 +22,19 @@ namespace VideoGameShop
         private string filter = "";
         private string sort = "";
         private bool sort_reversed = false;
-        private int limit = -1;
+        private int limit = chunckSize;
         private int offset = -1;
-
+        private static int chunckSize = 20;
+        private int productDisplayed = 0;
+        private int pageNum = 1;
         public List<CartItem> bucket = new List<CartItem>();
 
         public ProductForm()
         {
             InitializeComponent();
         }
-         private static string connectionString = "server=127.0.0.1;database=db44;user=root;password=root";
-        //public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
+        //private static string connectionString = "server=127.0.0.1;database=db44;user=root;password=root";
+        public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
         private Image ByteArrayToImage(byte[] byteArrayIn)
         {
             using (MemoryStream ms = new MemoryStream(byteArrayIn))
@@ -131,6 +133,22 @@ namespace VideoGameShop
 
         private void ProductForm_Load(object sender, EventArgs e)
         {
+            Point initLoc = new Point(437, 664);
+            var pageCount = CountPages(chunckSize, GetRecordsCount("videogame"));
+            for (int i = 0; i < pageCount; i++)
+            {
+                LinkLabel label = new LinkLabel
+                {
+                    Text = $"{i+1}",
+                    AutoSize = true,
+                    Location = new Point(initLoc.X + (20 * i + 1), 664)
+                };
+                label.Parent = this;
+                label.Show();
+                label.Click += Label_Click;
+            }
+
+
             createColumns();
             updateRows();
             var categories = GetCategories();
@@ -154,8 +172,17 @@ namespace VideoGameShop
                 button2.Visible = false;
                 Deletebutton.Visible = false;
             }
-
         }
+
+        private void Label_Click(object sender, EventArgs e)
+        {
+            var label = (LinkLabel)sender;
+            pageNum = Convert.ToInt32(label.Text);
+            limit = chunckSize * pageNum;
+            offset = (pageNum - 1) * chunckSize;
+            updateRows();
+        }
+
         private void createColumns()
         {
             // picture | name | category | price
@@ -197,6 +224,9 @@ namespace VideoGameShop
             dataGridView1.Rows.Clear();
             List<Videogame> Videogames = search(name, filter, sort, limit, offset, sort_reversed);
 
+            productDisplayed = 0;
+            PageText.Text = $"{pageNum}";
+            
             // picture | name | category | price
             foreach (Videogame Videogame in Videogames)
             {
@@ -207,13 +237,32 @@ namespace VideoGameShop
                     GetVideogameProvider(Videogame),
                     Videogame.cost,
                     Videogame.quantity);
+                productDisplayed++;
             }
+            KolText.Text = $"Количество товара: {productDisplayed}";
         }
 
         private void userLogin_TextChanged(object sender, EventArgs e)
         {
             name = userLogin.Text;
             updateRows();
+        }
+
+        private int CountPages(int items_per_page, int items_count)
+        {
+            return (int)Math.Ceiling((double)items_count / items_per_page);
+        }
+
+        private int GetRecordsCount(string table)
+        {
+            using (var con = new MySqlConnection(connectionString))
+            {
+                con.Open();
+
+                string sql = $"SELECT COUNT(*) FROM {table}";
+                var cmd = new MySqlCommand(sql, con);
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -399,6 +448,27 @@ namespace VideoGameShop
                 var cmd = new MySqlCommand(sql, con);
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //inc
+            int itemsCount = GetRecordsCount("videogame");
+            int pageCount = CountPages(chunckSize, itemsCount);
+            if (pageNum + 1 > pageCount) return;
+            pageNum++;
+            limit = chunckSize * pageNum;
+            offset = (pageNum - 1) * chunckSize;
+            updateRows();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (pageNum - 1 <= 0) return;
+            pageNum--;
+            limit = chunckSize * pageNum;
+            offset = (pageNum - 1) * chunckSize;
+            updateRows();
         }
     }
 }
