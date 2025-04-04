@@ -14,10 +14,11 @@ namespace VideoGameShop
     public partial class ClientForm : Form
     {
         // private static string connectionString = "server=127.0.0.1;database=db44;user=root;password=root";
-       public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
+        public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
         public ClientForm()
         {
             InitializeComponent();
+            //LoadData();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,7 +49,7 @@ namespace VideoGameShop
             string select = $"SELECT * FROM `client`";
             string _search = $"WHERE `fio` LIKE '%{name}%'";
 
-        string sql = select;
+            string sql = select;
 
             bool name_not_empty = name != null && !name.Equals(string.Empty);
 
@@ -82,17 +83,19 @@ namespace VideoGameShop
         }
         private void createColumns()
         {
-            // picture | name | category | price
 
             var fio = new DataGridViewTextBoxColumn();
             fio.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             fio.HeaderText = "Фио клиента";
+            fio.Name = "fio";
             var number = new DataGridViewTextBoxColumn();
             number.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             number.HeaderText = "Номер телефона";
+            number.Name = "phone";
             var adress = new DataGridViewTextBoxColumn();
             adress.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            adress.HeaderText = "Адресс";
+            adress.HeaderText = "Адрес";
+            adress.Name = "adress";
 
             dataGridView1.Columns.Add(fio);
             dataGridView1.Columns.Add(number);
@@ -100,7 +103,7 @@ namespace VideoGameShop
         }
         private void updateRows()
         {
-            dataGridView1.RowTemplate.Height = 100;
+            dataGridView1.RowTemplate.Height = 30;
             dataGridView1.Rows.Clear();
             List<Client> Client = search();
 
@@ -120,11 +123,48 @@ namespace VideoGameShop
                 string phoneNumber = e.Value.ToString();
                 if (!string.IsNullOrEmpty(phoneNumber))
                 {
-                    string maskedNumber = phoneNumber[0] + new string('*', phoneNumber.Length - 1);
+                    string maskedNumber = "+7" + "(" + phoneNumber[1] + phoneNumber[2] + phoneNumber[3] + ")" + new string('*', phoneNumber.Length - 6) + phoneNumber[7] + phoneNumber[8];
                     e.Value = maskedNumber;
                     e.FormattingApplied = true;
                 }
             }
+            if (e.ColumnIndex == 0 && e.Value != null)
+            {
+                string fio = e.Value.ToString();
+                if (!string.IsNullOrEmpty(fio))
+                {
+                    string[] clientData = fio.Split(' ');
+                    string maskedFio = $"{clientData[0]} {clientData[1][0].ToString().ToUpper()}. {clientData[2][0].ToString().ToUpper()}.";
+                    e.Value = maskedFio;
+                    e.FormattingApplied = true;
+                }
+            }
+            if (e.ColumnIndex == 2 && e.Value != null)
+            {
+                string city = e.Value.ToString();
+                if (!string.IsNullOrEmpty(city))
+                {
+                    string[] cityData = city.Split(',');
+                    string maskedcity = $"{cityData[0]} {cityData[1]}";
+                    e.Value = maskedcity;
+                    e.FormattingApplied = true;
+                }
+            }
         }
-    }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var selectedRod = dataGridView1.Rows[e.RowIndex];
+                ClientShowForm fr = new ClientShowForm(
+                    selectedRod.Cells["fio"].Value.ToString(),
+                    selectedRod.Cells["phone"].Value.ToString(),
+                    selectedRod.Cells["adress"].Value.ToString());
+                fr.ShowDialog();
+            }
+            
+        }
+    }    
 }
+

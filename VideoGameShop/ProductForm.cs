@@ -147,8 +147,6 @@ namespace VideoGameShop
                 label.Show();
                 label.Click += Label_Click;
             }
-
-
             createColumns();
             updateRows();
             var categories = GetCategories();
