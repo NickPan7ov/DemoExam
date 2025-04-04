@@ -65,34 +65,7 @@ namespace VideoGameShop
                 }
             }
         }
-        private bool AuthenticateUser(string username, string password)
-        {
-            string storedHash = string.Empty;
-
-            using (var connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                string query = "SELECT password FROM user WHERE username = @username";
-                using (var command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@username", username);
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            storedHash = reader.GetString(0);
-                        }
-                    }
-                }
-            }
-            // Хэшируем введенный пароль
-            using (var sha256 = SHA256.Create())
-            {
-                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                string hash = BitConverter.ToString(bytes).Replace("-", "").ToLowerInvariant();
-                return hash == storedHash;
-            }
-        }
+       
         private bool checkFields()
         {
             return userLogin.Text != "" && userPassword.Text != "";

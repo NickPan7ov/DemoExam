@@ -29,7 +29,7 @@ namespace VideoGameShop
         public AddProductForm()
         {
             InitializeComponent();
-            
+
         }
         public static string connectionString = "server=10.207.106.12;database=db44;user=user44;password=sc96";
         //private static string connectionString = "server=127.0.0.1;database=db44;user=root;password=root";
